@@ -1,0 +1,12 @@
+{
+  "name": "dashboard-backend-frak",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "seed": "node --env-file=.env scripts/seed.js"
+  },
+  "dependencies": {
+    "mongoose": "^8.4.0",
+    "xlsx": "^0.18.5"
+  }
+}
