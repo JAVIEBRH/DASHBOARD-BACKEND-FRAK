@@ -3,6 +3,7 @@ import { connectDb } from '../lib/mongodb.js';
 import Transaction from '../lib/models/Transaction.js';
 import StockItem from '../lib/models/StockItem.js';
 import FurnitureItem from '../lib/models/FurnitureItem.js';
+import Property from '../lib/models/Property.js';
 import { buildDiegoData } from '../lib/buildDiegoData.js';
 import { handleCors } from '../lib/cors.js';
 
@@ -13,5 +14,6 @@ export default async function handler(req, res) {
   const txs = await Transaction.find({}).lean();
   const stock = await StockItem.find({}).lean();
   const furniture = await FurnitureItem.find({}).lean();
-  res.json(buildDiegoData(txs, stock, furniture));
+  const stockProperties = await Property.find({}).lean();
+  res.json(buildDiegoData(txs, stock, furniture, stockProperties));
 }
