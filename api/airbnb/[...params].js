@@ -15,6 +15,7 @@ export default async function handler(req, res) {
   if (handleCors(req, res)) return;
   const params = Array.isArray(req.query.params) ? req.query.params : [];
   const [resource, id] = params;
+  if (resource === '__debug') return res.json({ query: req.query, url: req.url });
   const Model = MODELS[resource];
   if (!Model) return res.status(404).json({ ok: false, error: 'unknown resource' });
   await connectDb();
