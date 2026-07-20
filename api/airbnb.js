@@ -28,7 +28,11 @@ export default async function handler(req, res) {
   }
 
   if (req.method === 'PUT' && id) {
-    const result = await Model.findOneAndUpdate({ id }, req.body, { new: true });
+    const body = { ...req.body };
+    if (resource === 'kanban' && 'status' in body) {
+      body.doneAt = body.status === 'done' ? new Date() : null;
+    }
+    const result = await Model.findOneAndUpdate({ id }, body, { new: true });
     if (!result) return res.status(404).json({ ok: false, error: 'not found' });
     return res.json({ ok: true });
   }

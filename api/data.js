@@ -9,6 +9,7 @@ import Limpieza from '../lib/models/Limpieza.js';
 import KanbanTask from '../lib/models/KanbanTask.js';
 import { buildDiegoData } from '../lib/buildDiegoData.js';
 import { handleCors } from '../lib/cors.js';
+import { ensureRecurringOptimizacionTasks } from '../lib/ensureRecurringOptimizacionTasks.js';
 
 export default async function handler(req, res) {
   if (handleCors(req, res)) return;
@@ -20,6 +21,12 @@ export default async function handler(req, res) {
   const stockProperties = await Property.find({}).lean();
   const estadias = await Estadia.find({}).lean();
   const limpiezas = await Limpieza.find({}).lean();
-  const kanbanTasks = await KanbanTask.find({}).lean();
+  let kanbanTasks = await KanbanTask.find({}).lean();
+
+  const newlyCreated = await ensureRecurringOptimizacionTasks(stockProperties, kanbanTasks);
+  if (newlyCreated.length > 0) {
+    kanbanTasks = [...kanbanTasks, ...newlyCreated.map(doc => doc.toObject())];
+  }
+
   res.json(buildDiegoData(txs, stock, furniture, stockProperties, estadias, limpiezas, kanbanTasks));
 }
