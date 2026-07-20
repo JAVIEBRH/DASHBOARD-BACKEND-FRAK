@@ -209,7 +209,7 @@ async function run() {
       console.warn(`SKIP merge pair (not found, migrating individually instead): "${bodegaName}" / "${enUsoName}"`);
       continue;
     }
-    const mergedName = bodegaName.replace(/\s*\(bodega\)\s*/i, '').trim();
+    const mergedName = bodegaName.replace(/\(bodega\)\s*/i, '').trim();
     await StockItem.updateOne({ id: bodegaRow.id }, {
       $set: {
         name: mergedName,
