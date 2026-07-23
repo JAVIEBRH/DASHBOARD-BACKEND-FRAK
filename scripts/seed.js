@@ -7,8 +7,8 @@ import mongoose from 'mongoose';
 import Transaction from '../lib/models/Transaction.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const EXCEL_2025 = path.join(__dirname, '../../AIRBNB DIEGO  ALLENDES/Planilla Contable 2025.xlsx');
-const EXCEL_2026 = path.join(__dirname, '../../AIRBNB DIEGO  ALLENDES/Planilla Contable 2026.xlsx');
+const EXCEL_2025 = path.join(__dirname, '../../../../AIRBNB DIEGO  ALLENDES/Planilla Contable 2025.xlsx');
+const EXCEL_2026 = path.join(__dirname, '../../../../AIRBNB DIEGO  ALLENDES/Planilla Contable 2026.xlsx');
 
 const COL_MAP_19 = [
   null, null,
